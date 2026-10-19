@@ -21,3 +21,11 @@ find . -type f -name "*.txt" > "$LIST"
 WAKTU=$(date +%Y%m%d_%H%M%S)
 ARSIP="backup_${NIM}_${WAKTU}.tar.gz"
 tar -czvf "$BACKUP/$ARSIP" -T "$LIST"
+
+# Tampilkan isi arsip tanpa mengekstrak
+tar -tzvf "$BACKUP/$ARSIP"
+
+# Tambahkan satu baris ke log (>> agar isi lama tidak tertimpa)
+JUMLAH=$(wc -l < "$LIST")
+UKURAN=$(du -h "$BACKUP/$ARSIP" | cut -f1)
+echo "$(date '+%Y-%m-%d %H:%M:%S') | $ARSIP | $JUMLAH | $UKURAN" >> "$LOG"

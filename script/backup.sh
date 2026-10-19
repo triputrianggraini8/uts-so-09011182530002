@@ -29,3 +29,5 @@ tar -tzvf "$BACKUP/$ARSIP"
 JUMLAH=$(wc -l < "$LIST")
 UKURAN=$(du -h "$BACKUP/$ARSIP" | cut -f1)
 echo "$(date '+%Y-%m-%d %H:%M:%S') | $ARSIP | $JUMLAH | $UKURAN" >> "$LOG"
+# Rotasi: simpan 5 arsip terbaru, hapus yang lebih lama
+ls -t "$BACKUP"/backup_${NIM}_*.tar.gz | tail -n +6 | xargs -r rm
